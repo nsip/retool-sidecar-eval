@@ -5,16 +5,17 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "sidecar-eval",
-	"main": "src/index.js",
+	"main": "src/orig.js",
 	"compatibility_date": "2025-11-18",
 	"observability": {
 		"enabled": true
-	}
+	},
 	/**
-	 * Smart Placement
+	 * Smart Placement - ENABLED
+	 * Automatically places worker near most-called resources (Directus in Sydney)
 	 * Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
 	 */
-	// "placement": { "mode": "smart" }
+	"placement": { "mode": "smart" }
 	/**
 	 * Bindings
 	 * Bindings allow your Worker to interact with resources on the Cloudflare Developer Platform, including
