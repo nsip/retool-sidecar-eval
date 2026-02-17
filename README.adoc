@@ -1,12 +1,48 @@
 == retool-sidecar-eval
 
-This is an edge worker, implemented to pass JWT-authenticated requests to Directus from Retool. 
-The edge worker has been put in place as the time lag in queries posted directly to Directus 
-from Retool was unacceptably large, in the realm of 3 sec: Retool updates are meant to be
-rapid-fire and incremental updates to the Directus source of truth about assessments.
+https://github.com/nsip/retool-sidecar-eval[]
 
-The edge worker is at this time deployed on Cloudflare. It receives JWT-authenticated requests
+This is an edge worker, implemented to pass JWT-authenticated requests to Directus (backend database)
+from Retool (frontend interface), for the ST4S evaluation tool used by NSIP.
+The edge worker has been put in place as the time lag in queries posted directly to Directus 
+from Retool was unacceptably large, in the realm of 3 sec: Retool updates are issued incrementally
+and interactively as assessors navigate from control to control, with one update query issued per control:
+they are meant to be rapid-fire updates to the Directus backend source of truth about assessments.
+
+The edge worker receives JWT-authenticated requests
 from Retool, and validates them with a shared secret between Retool and the Cloudflare deployment.
 The implementation is documented in link:JWT_IMPLEMENTATION_SUMMARY.md[]
 
+The edge worker is invoked in Retool by `save_evaluation_blob`, the module which saves JSON create/update
+payloads relating to one or more controls and their assessor evaluations to Directus:
 
+[source,javascript]
+----
+    const workerUrl = "https://sidecar-eval.nsip-esa.workers.dev";
+
+    try {
+      // Generate JWT for authentication (direct call - no trigger overhead)
+      const secretForSigning = retoolContext.configVars.directus_bearer_token_plaintext;
+      const jwtToken = await window.generateJWT(secretForSigning, "retool", "sidecar-eval", 60);
+
+      const response = await fetch(workerUrl, {
+        method: "POST",
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${jwtToken}`
+        },
+        body: JSON.stringify({
+          operation: "update",
+          id: eval_id,
+          blob: ret, // paylod to save to Directus
+          Assessment: assessment_id,
+          Control_Code: parseInt(control_id)
+        })
+      });
+
+      const result = await response.json();
+----
+
+The edge worker is at this time deployed on Cloudflare, as `https://sidecar-eval.nsip-esa.workers.dev`.
+The credentials to access the account on Cloudflare where it is deployed are available on Sharepoint:
+`ST4S/ST4S Tech and Tools/Retool/sidecar-eval`
