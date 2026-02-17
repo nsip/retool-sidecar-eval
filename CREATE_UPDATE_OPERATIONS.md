@@ -28,7 +28,7 @@ The Cloudflare Worker now supports both CREATE and UPDATE operations for Assessm
 
 ## Worker Deployment
 
-- **URL:** https://sidecar-eval.nsipesa.workers.dev
+- **URL:** https://sidecar-eval.nsip-esa.workers.dev
 - **Version:** 65e39c63-f9c1-418a-aa10-e610bd056a5c
 - **Entry Point:** `src/orig.js`
 
@@ -320,7 +320,9 @@ Missing Fields Status: 400
 # Shared secret for JWT signing/verification
 wrangler secret put DIRECTUS_TOKEN
 
-# Directus API base URL
+# Directus API base URL (⚠️ NO trailing slash!)
+# Example: https://app.st4s.edu.au (NOT https://app.st4s.edu.au/)
+# Trailing slash causes double-slash in paths: //items/Assessment_Data/123
 wrangler secret put DIRECTUS_BASE
 ```
 

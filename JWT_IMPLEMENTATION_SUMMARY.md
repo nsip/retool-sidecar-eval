@@ -125,7 +125,8 @@ Returns:
 # The shared secret (MUST match Retool's directus_bearer_token_plaintext)
 wrangler secret put DIRECTUS_TOKEN
 
-# Directus API base URL
+# Directus API base URL (⚠️ NO trailing slash!)
+# Example: https://app.st4s.edu.au (NOT https://app.st4s.edu.au/)
 wrangler secret put DIRECTUS_BASE
 ```
 
@@ -196,4 +197,4 @@ wrangler secret put DIRECTUS_BASE
 - TTL set to 60 seconds (configurable)
 - Base64URL encoding (no padding)
 - Secrets must match exactly (no whitespace)
-- Worker deployed at: https://sidecar-eval.nsipesa.workers.dev
+- Worker deployed at: https://sidecar-eval.nsip-esa.workers.dev

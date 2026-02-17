@@ -1,0 +1,12 @@
+== retool-sidecar-eval
+
+This is an edge worker, implemented to pass JWT-authenticated requests to Directus from Retool. 
+The edge worker has been put in place as the time lag in queries posted directly to Directus 
+from Retool was unacceptably large, in the realm of 3 sec: Retool updates are meant to be
+rapid-fire and incremental updates to the Directus source of truth about assessments.
+
+The edge worker is at this time deployed on Cloudflare. It receives JWT-authenticated requests
+from Retool, and validates them with a shared secret between Retool and the Cloudflare deployment.
+The implementation is documented in link:JWT_IMPLEMENTATION_SUMMARY.md[]
+
+

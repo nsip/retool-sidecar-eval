@@ -12,7 +12,7 @@
 
 ## Deployed Worker Configuration
 
-- **Worker URL:** https://sidecar-eval.nsipesa.workers.dev
+- **Worker URL:** https://sidecar-eval.nsip-esa.workers.dev
 - **Current Entry Point:** src/orig.js
 - **Version:** f84dd8d3-1c10-490d-86c9-1a1e18c6007b
 
