@@ -11,7 +11,8 @@ they are meant to be rapid-fire updates to the Directus backend source of truth 
 
 The edge worker receives JWT-authenticated requests
 from Retool, and validates them with a shared secret between Retool and the Cloudflare deployment.
-The implementation is documented in link:JWT_IMPLEMENTATION_SUMMARY.md[]
+The implementation is documented in link:JWT_IMPLEMENTATION_SUMMARY.md[], and (with some redundancy)
+link:CREATE_UPDATE_OPERATIONS.md[].
 
 The edge worker is invoked in Retool by `save_evaluation_blob`, the module which saves JSON create/update
 payloads relating to one or more controls and their assessor evaluations to Directus:

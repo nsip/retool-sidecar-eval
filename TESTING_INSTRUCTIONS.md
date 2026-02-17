@@ -125,9 +125,12 @@ Look at the debug mode output to see exactly what the worker received.
 
 ## Files Overview
 
+- **`retool/save_evaluation_blob.js`** - Point-in-time Retool production code invoking sidecar
+(needs JWT integration after tests pass). Will not match the current code in production Retool.
+
 - **`retool/generateJWT.js`** - JWT generation function (called by other scripts)
 - **`retool/json_web_token.js`** - Simple test script (confirmed working with src/index.js)
-- **`retool/test_orig_worker.js`** - Comprehensive test for src/orig.js (USE THIS NEXT)
+- **`retool/test_orig_worker.js`** - Comprehensive test for src/orig.js 
 - **`retool/test_generate_jwt.js`** - Example of how to call generateJWT
 - **`retool/save_evaluation_blob.js`** - Production code (needs JWT integration after tests pass)
 - **`src/index.js`** - Simple JWT verification worker (confirmed working)
